@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>Campfire — Roleplay deserves better.</title>
+<link rel="stylesheet" href="colors_and_type.css"/>
+<style>
+  html, body { background: var(--bg-app); margin: 0; }
+  body { font-family: var(--font-body); color: var(--text-body); }
+  *, *::before, *::after { box-sizing: border-box; }
+  button, input { font-family: inherit; }
+  a { color: inherit; }
+  ::selection { background: var(--ember); color: #fff; }
+  /* canvas chrome bg */
+  body { background: #f0eee9; }
+  .site { background: var(--bg-app); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="icons.jsx"></script>
+<script type="text/babel" src="newsletter.jsx"></script>
+<script type="text/babel" src="header.jsx"></script>
+<script type="text/babel" src="hero.jsx"></script>
+<script type="text/babel" src="sections.jsx"></script>
+<script type="text/babel" src="landing.jsx"></script>
+
+<script type="text/babel">
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection id="landing" title="Campfire — Pre-launch landing"
+        subtitle="Three hero variants. Same anti-ghosting story, different opening moves.">
+        <DCArtboard id="centered" label="A · Centered — direct headline" width={1280} height={6400}>
+          <Landing overrides={{ layout: "centered", headline: "ghost-direct", density: "relaxed" }}/>
+        </DCArtboard>
+        <DCArtboard id="split" label="B · Split — empathy headline + app preview" width={1280} height={6400}>
+          <Landing overrides={{ layout: "split", headline: "ghost-empathy", density: "relaxed" }}/>
+        </DCArtboard>
+        <DCArtboard id="minimal" label="C · Minimal — question headline, type-only" width={1280} height={6500}>
+          <Landing overrides={{ layout: "minimal", headline: "ghost-question", density: "relaxed" }}/>
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>

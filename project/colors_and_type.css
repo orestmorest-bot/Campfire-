@@ -1,0 +1,176 @@
+/* ============================================================
+   CAMPFIRE — Design tokens
+   colors • type • spacing • radii • shadows • motion
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+@font-face {
+  font-family: 'ArcadeClassic';
+  src: url('fonts/ARCADECLASSIC.TTF') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* -------- Color: brand core (Ember) --------- */
+  --ember:        #FF6B3D;   /* primary — actions, brand, active */
+  --ember-hot:   #FF8557;    /* hover on ember */
+  --ember-deep:  #E0511F;    /* press on ember */
+  --ember-dim:   rgba(255,107,61,0.14);  /* tinted bg */
+  --spark:        #FFB347;   /* highlight on top of ember */
+
+  /* -------- Color: surfaces (dark canvas) ----- */
+  --charcoal:     #1A0E08;   /* canvas — printable brand surface */
+  --bg-app:       #161E24;   /* app canvas (Figma) */
+  --bg-header:    #1B2229;   /* fixed header */
+  --surface-card: #20262B;   /* default card */
+  --surface-raised: #262D34; /* hover/lift */
+  --surface-input:  #2C353D; /* input fill */
+  --border-subtle:  #2C353D; /* 1px border on dark */
+  --border-strong:  #3A4550; /* heavier divider */
+
+  /* -------- Color: text on dark --------------- */
+  --text-hi:       #F7F7F7;  /* primary */
+  --text-body:     #C5D0E6;  /* body */
+  --text-muted:    #858EAD;  /* meta, labels, placeholder */
+  --text-dim:      #5C6478;  /* disabled, faint */
+
+  /* -------- Color: light surfaces ------------- */
+  --parchment:     #F4EDE0;  /* printables, exports */
+  --parchment-deep:#E8DEC9;
+  --ink:           #1A0E08;  /* text on parchment */
+
+  /* -------- Color: game state ----------------- */
+  --crit:          #4ADE80;  /* green — ready, success */
+  --mana:          #60A5FA;  /* blue — concentrating, info */
+  --rare:          #A78BFA;  /* purple — rare, special */
+  --damage:        #F87171;  /* red — down, error */
+  --xp:            #FBBF24;  /* gold — xp, turn */
+
+  /* -------- Type: stacks ---------------------- */
+  --font-display: 'ArcadeClassic', 'Press Start 2P', ui-monospace, monospace;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-app:     'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif; /* Figma faithful */
+
+  /* -------- Type: scale (marketing) ----------- */
+  --fs-display-xl: 64px;   /* hero — Press Start 2P */
+  --fs-display-lg: 40px;
+  --fs-display-md: 24px;
+  --fs-display-sm: 16px;
+  --fs-display-xs: 10px;   /* labels, tags */
+
+  --fs-h1: 48px;           /* Inter 800 */
+  --fs-h2: 32px;
+  --fs-h3: 24px;
+  --fs-h4: 20px;
+
+  --fs-body-lg: 18px;
+  --fs-body:    16px;
+  --fs-body-sm: 14px;
+  --fs-meta:    12px;
+
+  --fs-mono-lg: 14px;
+  --fs-mono:    12px;
+  --fs-mono-sm: 10px;
+
+  /* line heights */
+  --lh-tight: 1.1;
+  --lh-snug:  1.25;
+  --lh-body:  1.55;
+  --lh-loose: 1.7;
+
+  /* -------- Spacing (8px grid) ---------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* -------- Radii ---------------------------- */
+  --radius-readout: 0;       /* terminal surfaces — sharp */
+  --radius-tag:     6px;
+  --radius-button:  7px;
+  --radius-input:   8px;
+  --radius-card:    8px;
+  --radius-frame:   16px;    /* large containers */
+  --radius-pill:    999px;
+
+  /* -------- Shadows -------------------------- */
+  --shadow-card:    0 1px 0 rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+  --shadow-pop:     0 12px 40px rgba(0,0,0,0.5);
+  --shadow-ember:   0 0 0 1px rgba(250,137,36,0.4), 0 8px 24px rgba(250,137,36,0.18);
+  --shadow-press:   inset 0 2px 0 rgba(0,0,0,0.3);
+  --ring-focus:     0 0 0 2px var(--bg-app), 0 0 0 4px var(--ember);
+
+  /* -------- Motion --------------------------- */
+  --ease:        cubic-bezier(0.2, 0.8, 0.2, 1);
+  --t-hover:     120ms;
+  --t-state:     200ms;
+  --t-page:      400ms;
+
+  /* -------- Layout --------------------------- */
+  --header-h:    80px;
+  --header-h-mkt: 72px;
+  --max-w-mkt:   1280px;
+  --max-w-app:   1440px;
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT BASELINES
+   Use these as a baseline; override per surface.
+   ============================================================ */
+
+html, body {
+  background: var(--bg-app);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display headings — pixel font */
+.h-display, .h-display-xl, .h-display-lg {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  color: var(--text-hi);
+  letter-spacing: 0.02em;
+  line-height: var(--lh-tight);
+}
+.h-display-xl { font-size: var(--fs-display-xl); }
+.h-display-lg { font-size: var(--fs-display-lg); }
+.h-display    { font-size: var(--fs-display-md); }
+.h-display-sm { font-size: var(--fs-display-sm); letter-spacing: 0.04em; }
+
+/* Inter headings — for marketing body sections */
+h1, .h1 { font-family: var(--font-body); font-size: var(--fs-h1); font-weight: 800; line-height: var(--lh-tight); color: var(--text-hi); letter-spacing: -0.02em; }
+h2, .h2 { font-family: var(--font-body); font-size: var(--fs-h2); font-weight: 800; line-height: var(--lh-snug); color: var(--text-hi); letter-spacing: -0.01em; }
+h3, .h3 { font-family: var(--font-body); font-size: var(--fs-h3); font-weight: 700; line-height: var(--lh-snug); color: var(--text-hi); }
+h4, .h4 { font-family: var(--font-body); font-size: var(--fs-h4); font-weight: 700; line-height: var(--lh-snug); color: var(--text-hi); }
+
+/* Body */
+p, .p   { font-family: var(--font-body); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-body); }
+.lead   { font-size: var(--fs-body-lg); line-height: var(--lh-body); color: var(--text-body); }
+.meta   { font-size: var(--fs-body-sm); color: var(--text-muted); }
+
+/* Mono / readout */
+.mono   { font-family: var(--font-mono); font-size: var(--fs-mono); letter-spacing: 0.02em; }
+.readout { font-family: var(--font-mono); font-size: var(--fs-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+.readout--ember { color: var(--ember); }
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+}
+
+/* App-faithful (Figma stack) */
+.app-text { font-family: var(--font-app); font-weight: 600; }
