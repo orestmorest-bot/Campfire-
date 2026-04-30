@@ -83,11 +83,11 @@ export function ProblemSection() {
             <SectionEyebrow label="WHY WE'RE BUILDING THIS" title="Roleplay is wonderful. The tools we use for it aren't."/>
             <p style={{ fontSize: 18, color: 'var(--text-body)', lineHeight: 1.65,
               margin: '20px 0 0', maxWidth: 540 }}>
-              Most of us write roleplay in DMs and Discord servers — places that weren't really designed for stories.
+              Most of us write roleplay across Subreddits, Discord servers, and forums — places that weren't really built for stories. So things go a little sideways. Replies trail off mid-arc. It's hard to tell if a partner's pace matches yours before you've already invested hours. There's no real way to search for characters or campaigns that fit what you're looking for. Great writers struggle to find each other in the noise.
               <br/><br/>
-              So things go a little sideways. Replies trail off mid-arc. It's hard to tell if a partner's tone matches yours before you start. Characters live in scattered docs no one else can find. Great writers can't easily meet each other.
+              <b style={{ color: 'var(--text-hi)' }}>It's just what happens when a hobby outgrows its tools.</b>
               <br/><br/>
-              <b style={{ color: 'var(--text-hi)' }}>None of this is anyone's fault.</b> It's just what happens when a hobby outgrows its tools. Campfire is our love letter to roleplay — a place that finally fits the shape of how we actually write together.
+              Campfire is the first platform built for roleplayers, by roleplayers. Reliable partners. Searchable campaigns. No more ghosts.
             </p>
             <div style={{ marginTop: 32, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 0,
               border: '1px solid rgba(255,107,61,0.2)', background: '#20140C',
