@@ -18,7 +18,7 @@ export function VideoSection() {
   return (
     <section id="video" style={{ padding: '80px 32px', borderTop: '1px solid var(--border-subtle)' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <SectionEyebrow label="WATCH" title="A little look at what we're building. We think you'll smile."/>
+        <SectionEyebrow label="WATCH" title="A little look at what we're building."/>
         <div style={{
           position: 'relative', aspectRatio: '16 / 9',
           background: '#0F0805',

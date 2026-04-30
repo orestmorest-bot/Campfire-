@@ -3,7 +3,7 @@ import { IconChevronDown } from './Icons';
 
 const FAQ_ITEMS = [
   ['When is the Kickstarter launching?',
-    'June 2026. Subscribers to this newsletter get a 24-hour exclusive window on early-bird tiers before public launch.'],
+    'August 1, 2026. Subscribers to this newsletter get a 24-hour exclusive window on early-bird tiers before public launch.'],
   ['What does Campfire actually cost at launch?',
     'Free forever for the core social features. We\'ll have an optional supporter tier (~$5/mo) for cosmetic perks and bigger campaign hosting. The Kickstarter funds development; backers get lifetime perks.'],
   ['How does the kudos & profile system work, exactly?',

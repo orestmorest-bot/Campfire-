@@ -59,19 +59,19 @@ const WaitlistReadout = ({ align = 'center' }) => (
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)',
           letterSpacing: '0.12em', textTransform: 'uppercase' }}>WAITLIST</div>
         <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 18, color: 'var(--ember)',
-          letterSpacing: '0.04em' }}>2,847</div>
+          letterSpacing: '0.04em' }}>0</div>
       </div>
       <div style={{ padding: '12px 18px', borderRight: '1px solid rgba(255,107,61,0.18)' }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)',
           letterSpacing: '0.12em', textTransform: 'uppercase' }}>SINCE LAST WEEK</div>
         <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 18, color: 'var(--crit)',
-          letterSpacing: '0.04em' }}>+412</div>
+          letterSpacing: '0.04em' }}>+0</div>
       </div>
       <div style={{ padding: '12px 18px' }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)',
           letterSpacing: '0.12em', textTransform: 'uppercase' }}>KICKSTARTER LAUNCH</div>
         <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 18, color: 'var(--text-hi)',
-          letterSpacing: '0.04em' }}>JUNE&nbsp;2026</div>
+          letterSpacing: '0.04em' }}>AUG&nbsp;1,&nbsp;2026</div>
       </div>
     </div>
   </div>

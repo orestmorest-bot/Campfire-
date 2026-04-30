@@ -50,7 +50,7 @@ export function KickstarterSection() {
   const roadmap = [
     ['MAR 26', 'Closed alpha', 'done'],
     ['MAY 26', 'Open beta', 'active'],
-    ['JUN 26', 'Kickstarter launch', 'upcoming'],
+    ['AUG 1', 'Kickstarter launch', 'upcoming'],
     ['SEP 26', 'v1 public release', 'upcoming'],
   ];
 
@@ -60,7 +60,7 @@ export function KickstarterSection() {
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
           <div>
-            <SectionEyebrow label="THE KICKSTARTER" title="June 2026. Subscribers go first."/>
+            <SectionEyebrow label="THE KICKSTARTER" title="August 2026. Subscribers go first."/>
             <p style={{ fontSize: 17, color: 'var(--text-body)', lineHeight: 1.6, margin: '20px 0 0',
               maxWidth: 520 }}>
               We're building Campfire as a community-funded platform. No VCs, no growth-hacks, no algorithmic feed
