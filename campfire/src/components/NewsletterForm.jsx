@@ -4,11 +4,21 @@ import { IconMail, IconArrowRight, IconCheck } from './Icons';
 function useNewsletter() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle');
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setStatus('error'); return; }
     setStatus('loading');
-    setTimeout(() => setStatus('done'), 700);
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) { setStatus('error'); return; }
+      setStatus('done');
+    } catch {
+      setStatus('error');
+    }
   };
   return { email, setEmail, status, submit };
 }
