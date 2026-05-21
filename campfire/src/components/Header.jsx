@@ -22,6 +22,8 @@ export function Header() {
         <a href="#top" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
           <img src="/assets/img/Campfire_logo_small_orange.png" alt="Campfire"
             style={{ height: 36, width: 'auto', display: 'block' }}/>
+          <span style={{ fontFamily: 'var(--font-display)', fontSize: 16,
+            color: 'var(--ember)', letterSpacing: '0.04em' }}>CAMPFIRE</span>
           <span style={{ marginLeft: 4, padding: '3px 8px', background: 'rgba(255,107,61,0.12)',
             border: '1px solid rgba(255,107,61,0.3)',
             fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--ember)',
