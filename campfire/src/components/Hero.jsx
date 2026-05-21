@@ -98,7 +98,7 @@ const HeroAppMock = () => (
       <div style={{ padding: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12,
           paddingBottom: 12, borderBottom: '1px solid var(--border-subtle)' }}>
-          <div style={{ width: 32, height: 32, background: '#3A2A1F',
+          <div style={{ width: 32, height: 32, background: '#1F2A35',
             border: '1px solid var(--border-subtle)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--ember)', fontWeight: 700 }}>WF</div>
@@ -106,7 +106,7 @@ const HeroAppMock = () => (
             <div style={{ fontFamily: 'var(--font-app)', fontWeight: 700, fontSize: 14,
               color: 'var(--text-hi)', display: 'flex', alignItems: 'center', gap: 8 }}>
               @wraithfox
-              <span style={{ width: 6, height: 6, borderRadius: 999, background: '#5A4A3E' }}/>
+              <span style={{ width: 6, height: 6, borderRadius: 999, background: '#4A5260' }}/>
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)',
                 fontWeight: 400, letterSpacing: '0.04em' }}>OFFLINE</span>
             </div>
@@ -115,8 +115,8 @@ const HeroAppMock = () => (
           </div>
         </div>
 
-        <div style={{ background: '#2A1810', padding: '10px 12px', marginBottom: 6,
-          borderLeft: '2px solid #5A4A3E' }}>
+        <div style={{ background: '#0F1419', padding: '10px 12px', marginBottom: 6,
+          borderLeft: '2px solid #4A5260' }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)',
             letterSpacing: '0.06em', marginBottom: 4, display: 'flex', justifyContent: 'space-between' }}>
             <span>WRAITHFOX</span><span>MON 11:47 PM</span>
@@ -138,11 +138,11 @@ const HeroAppMock = () => (
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 0',
-          fontFamily: 'var(--font-mono)', fontSize: 10, color: '#7A5A4A',
+          fontFamily: 'var(--font-mono)', fontSize: 10, color: '#5C6478',
           letterSpacing: '0.16em', textTransform: 'uppercase' }}>
-          <span style={{ flex: 1, height: 1, background: 'repeating-linear-gradient(90deg, #3A2A1F 0 4px, transparent 4px 8px)' }}/>
+          <span style={{ flex: 1, height: 1, background: 'repeating-linear-gradient(90deg, #1F2A35 0 4px, transparent 4px 8px)' }}/>
           <span>4 days · 11 hours of silence</span>
-          <span style={{ flex: 1, height: 1, background: 'repeating-linear-gradient(90deg, #3A2A1F 0 4px, transparent 4px 8px)' }}/>
+          <span style={{ flex: 1, height: 1, background: 'repeating-linear-gradient(90deg, #1F2A35 0 4px, transparent 4px 8px)' }}/>
         </div>
 
         {[
@@ -161,10 +161,10 @@ const HeroAppMock = () => (
         ))}
 
         <div style={{ display: 'flex', gap: 8, alignItems: 'center',
-          background: '#1A1410', border: '1px solid var(--border-subtle)',
+          background: '#0F1419', border: '1px solid var(--border-subtle)',
           padding: '10px 12px' }}>
-          <span style={{ fontSize: 13, color: '#5A4A3E', fontStyle: 'italic', flex: 1 }}>Type a reply…</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: '#5A4A3E', letterSpacing: '0.08em' }}>↵</span>
+          <span style={{ fontSize: 13, color: '#4A5260', fontStyle: 'italic', flex: 1 }}>Type a reply…</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: '#4A5260', letterSpacing: '0.08em' }}>↵</span>
         </div>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center',
           paddingTop: 10, marginTop: 10, borderTop: '1px solid var(--border-subtle)',

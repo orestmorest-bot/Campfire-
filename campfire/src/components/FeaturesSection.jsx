@@ -20,7 +20,7 @@ const MatchMock = () => (
       letterSpacing: '0.12em', marginBottom: 10 }}>WRAITHFOX · PLAYS 3 CHARACTERS</div>
     {[['Kael', 'morally grey duelist'], ['Mira', 'soft-spoken healer'], ['The Stranger', 'unreliable narrator']].map(([n, d], i) => (
       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
-        <span style={{ width: 18, height: 18, background: '#3A2A1F',
+        <span style={{ width: 18, height: 18, background: '#1F2A35',
           border: '1px solid var(--border-subtle)',
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
           fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--ember)', fontWeight: 700 }}>{n[0]}</span>
