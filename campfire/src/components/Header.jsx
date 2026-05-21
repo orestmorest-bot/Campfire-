@@ -1,4 +1,4 @@
-import { SpriteFire, IconArrowRight } from './Icons';
+import { IconArrowRight } from './Icons';
 
 export function Header() {
   const linkStyle = {
@@ -20,10 +20,9 @@ export function Header() {
         display: 'flex', alignItems: 'center', gap: 24,
       }}>
         <a href="#top" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-          <SpriteFire size={28}/>
-          <span style={{ fontFamily: 'var(--font-display)', fontSize: 16,
-            color: 'var(--ember)', letterSpacing: '0.04em' }}>CAMPFIRE</span>
-          <span style={{ marginLeft: 8, padding: '3px 8px', background: 'rgba(255,107,61,0.12)',
+          <img src="/assets/img/Campfire_logo_small_orange.png" alt="Campfire"
+            style={{ height: 36, width: 'auto', display: 'block' }}/>
+          <span style={{ marginLeft: 4, padding: '3px 8px', background: 'rgba(255,107,61,0.12)',
             border: '1px solid rgba(255,107,61,0.3)',
             fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--ember)',
             letterSpacing: '0.1em' }}>PRE-LAUNCH</span>
@@ -40,7 +39,7 @@ export function Header() {
             display: 'inline-flex', alignItems: 'center', gap: 8,
           }}>
             <span style={{ width: 6, height: 6, background: 'var(--crit)', borderRadius: 999 }}/>
-            <span><b style={{ color: 'var(--text-hi)' }}>2,847</b> on the waitlist</span>
+            <span><b style={{ color: 'var(--text-hi)' }}>0</b> on the waitlist</span>
           </span>
           <a href="#hero-form" style={{
             background: 'var(--ember)', color: '#fff', textDecoration: 'none',
