@@ -43,14 +43,12 @@ export function NewsletterForm({ size = 'hero', autoFocus = false }) {
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--crit)',
             letterSpacing: '0.1em', textTransform: 'uppercase' }}>▸ SEAT RESERVED</div>
           <div style={{ fontSize: 14, color: 'var(--text-hi)', marginTop: 4, lineHeight: 1.5 }}>
-            We'll ping you when the Kickstarter goes live. Welcome to the table.
+            We'll ping you when the Kickstarter goes live.
           </div>
           <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none',
             display: 'flex', flexDirection: 'column', gap: 6 }}>
             {[
               'Behind-the-scenes build notes — what we ship, what we scrap, why',
-              'Sneak peeks at characters, campaigns, and features in progress',
-              '24-hour exclusive window on early-bird Kickstarter tiers',
               'Stories and tips from the Campfire roleplay community',
             ].map((line, i) => (
               <li key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start',
