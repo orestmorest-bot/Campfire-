@@ -90,7 +90,7 @@ export function ProblemSection() {
               Campfire is the first platform built for roleplayers, by roleplayers. Reliable partners. Searchable campaigns. No more ghosts.
             </p>
             <div style={{ marginTop: 32, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 0,
-              border: '1px solid rgba(255,107,61,0.2)', background: '#20140C',
+              border: '1px solid rgba(255,107,61,0.2)', background: '#0F1419',
               position: 'relative' }}>
               <Brackets/>
               <Stat n="Replies" label="THAT TRAIL OFF MID-STORY"/>

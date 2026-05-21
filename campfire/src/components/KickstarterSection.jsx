@@ -16,7 +16,7 @@ function SectionEyebrow({ label, title }) {
 
 const Tier = ({ price, name, perks, featured, limited }) => (
   <div style={{
-    background: featured ? '#20140C' : 'var(--surface-card)',
+    background: featured ? '#0F1419' : 'var(--surface-card)',
     border: featured ? '1px solid rgba(255,107,61,0.45)' : '1px solid var(--border-subtle)',
     padding: '18px 22px', position: 'relative',
     boxShadow: featured ? '0 12px 32px rgba(255,107,61,0.12)' : 'none',
@@ -68,7 +68,7 @@ export function KickstarterSection() {
               <b style={{ color: 'var(--text-hi)' }}>24 hours before everyone else</b> — and the pledges in those first 24 hours have always sold out.
             </p>
             <div style={{ marginTop: 32, padding: 20, border: '1px solid rgba(255,107,61,0.25)',
-              background: '#20140C', position: 'relative' }}>
+              background: '#0F1419', position: 'relative' }}>
               <Brackets/>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--ember)',
                 letterSpacing: '0.14em', marginBottom: 12 }}>▸ ROADMAP</div>

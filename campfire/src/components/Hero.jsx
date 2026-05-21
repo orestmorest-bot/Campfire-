@@ -177,7 +177,7 @@ const HeroAppMock = () => (
 
     <div style={{
       position: 'absolute', bottom: -22, left: -32,
-      background: '#20140C', border: '1px solid rgba(255,107,61,0.5)',
+      background: '#0F1419', border: '1px solid rgba(255,107,61,0.5)',
       padding: '10px 14px', transform: 'rotate(-3deg)',
       boxShadow: '0 12px 30px rgba(0,0,0,0.5)',
     }}>
@@ -196,7 +196,7 @@ const HeroAppMock = () => (
 
     <div style={{
       position: 'absolute', top: 24, right: -24,
-      background: '#20140C', border: '1px solid rgba(255,107,61,0.35)',
+      background: '#0F1419', border: '1px solid rgba(255,107,61,0.35)',
       padding: '8px 12px', transform: 'rotate(3deg)', maxWidth: 190,
       boxShadow: '0 12px 30px rgba(0,0,0,0.4)',
     }}>
