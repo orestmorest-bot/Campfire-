@@ -33,17 +33,33 @@ export function NewsletterForm({ size = 'hero', autoFocus = false }) {
       <div style={{
         background: 'rgba(74,222,128,0.08)',
         border: '1px solid rgba(74,222,128,0.4)',
-        padding: isHero ? '18px 22px' : '12px 16px',
-        display: 'flex', alignItems: 'center', gap: 12,
-        maxWidth: isHero ? 520 : 420,
+        padding: isHero ? '18px 22px' : '14px 18px',
+        display: 'flex', alignItems: 'flex-start', gap: 12,
+        maxWidth: isHero ? 560 : 460,
       }}>
-        <span style={{ width: 8, height: 8, background: 'var(--crit)', borderRadius: 999 }}/>
+        <span style={{ width: 8, height: 8, background: 'var(--crit)', borderRadius: 999,
+          marginTop: 8, flexShrink: 0 }}/>
         <div>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--crit)',
             letterSpacing: '0.1em', textTransform: 'uppercase' }}>▸ SEAT RESERVED</div>
-          <div style={{ fontSize: 14, color: 'var(--text-hi)', marginTop: 4 }}>
+          <div style={{ fontSize: 14, color: 'var(--text-hi)', marginTop: 4, lineHeight: 1.5 }}>
             We'll ping you when the Kickstarter goes live. Welcome to the table.
           </div>
+          <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none',
+            display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {[
+              'Behind-the-scenes build notes — what we ship, what we scrap, why',
+              'Sneak peeks at characters, campaigns, and features in progress',
+              '24-hour exclusive window on early-bird Kickstarter tiers',
+              'Stories and tips from the Campfire roleplay community',
+            ].map((line, i) => (
+              <li key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start',
+                fontSize: 13, color: 'var(--text-body)', lineHeight: 1.45 }}>
+                <IconCheck size={13} style={{ color: 'var(--crit)', marginTop: 3, flexShrink: 0 }}/>
+                {line}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     );
