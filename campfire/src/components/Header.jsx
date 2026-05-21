@@ -1,6 +1,8 @@
 import { IconArrowRight } from './Icons';
+import { useSubscriberCount } from '../hooks/useSubscriberCount';
 
 export function Header() {
+  const count = useSubscriberCount();
   const linkStyle = {
     color: 'var(--text-body)', textDecoration: 'none',
     fontSize: 13, fontWeight: 500, padding: '8px 12px',
@@ -41,7 +43,7 @@ export function Header() {
             display: 'inline-flex', alignItems: 'center', gap: 8,
           }}>
             <span style={{ width: 6, height: 6, background: 'var(--crit)', borderRadius: 999 }}/>
-            <span><b style={{ color: 'var(--text-hi)' }}>0</b> on the waitlist</span>
+            <span><b style={{ color: 'var(--text-hi)' }}>{count?.toLocaleString() ?? '…'}</b> on the waitlist</span>
           </span>
           <a href="#hero-form" style={{
             background: 'var(--ember)', color: '#fff', textDecoration: 'none',

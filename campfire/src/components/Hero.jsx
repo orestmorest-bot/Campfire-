@@ -1,5 +1,6 @@
 import { NewsletterForm, NewsletterTrust } from './NewsletterForm';
 import { Brackets, IconClock, IconEye } from './Icons';
+import { useSubscriberCount } from '../hooks/useSubscriberCount';
 
 const HEADLINES = {
   'ghost-direct': {
@@ -47,7 +48,9 @@ const PreLaunchPill = () => (
   </div>
 );
 
-const WaitlistReadout = ({ align = 'center' }) => (
+const WaitlistReadout = ({ align = 'center' }) => {
+  const count = useSubscriberCount();
+  return (
   <div style={{ marginTop: 48, display: 'flex', justifyContent: align === 'center' ? 'center' : 'flex-start' }}>
     <div style={{
       display: 'inline-flex', alignItems: 'stretch', gap: 0,
@@ -59,13 +62,7 @@ const WaitlistReadout = ({ align = 'center' }) => (
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)',
           letterSpacing: '0.12em', textTransform: 'uppercase' }}>WAITLIST</div>
         <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 18, color: 'var(--ember)',
-          letterSpacing: '0.04em' }}>0</div>
-      </div>
-      <div style={{ padding: '12px 18px', borderRight: '1px solid rgba(255,107,61,0.18)' }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)',
-          letterSpacing: '0.12em', textTransform: 'uppercase' }}>SINCE LAST WEEK</div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 18, color: 'var(--crit)',
-          letterSpacing: '0.04em' }}>+0</div>
+          letterSpacing: '0.04em' }}>{count?.toLocaleString() ?? '…'}</div>
       </div>
       <div style={{ padding: '12px 18px' }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)',
@@ -75,7 +72,8 @@ const WaitlistReadout = ({ align = 'center' }) => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 const HeroAppMock = () => (
   <div style={{ position: 'relative' }}>
