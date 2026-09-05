@@ -1,0 +1,55 @@
+# Builds the Scripture Opener app and publishes it to GitHub Pages, so it can be opened
+# on a phone or tablet at https://<owner>.github.io/<repository>/
+#
+# One-time setup in the repository: Settings -> Pages -> "Build and deployment" -> Source: GitHub Actions
+name: Deploy Scripture Opener to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripture-opener/**'
+      - '.github/workflows/deploy-scripture-opener.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scripture-opener
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: scripture-opener/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+        env:
+          # The site lives under /<repository name>/ on GitHub Pages
+          BASE_PATH: /${{ github.event.repository.name }}/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: scripture-opener/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
