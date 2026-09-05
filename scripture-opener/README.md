@@ -19,16 +19,29 @@ device.
 
 ## Starting the app on your computer
 
-Open a terminal (Command Prompt or PowerShell on Windows, Terminal on Mac) in this `scripture-opener`
-folder and run:
+You only have to do steps 1 and 2 once.
+
+1. **Install Node.js.** Go to https://nodejs.org, download the version marked "LTS" and run the
+   installer, clicking Next until it finishes. Node.js is the small program that runs the app.
+2. **Get the app files.** Download this repository as a ZIP file from GitHub (the green "Code"
+   button, then "Download ZIP"), unzip it, and open the `scripture-opener` folder inside.
+3. **Start the app.** Double-click `Start on Windows.bat` (on Windows) or `Start on Mac.command`
+   (on a Mac). A black window appears, the first start installs a few things (about a minute), and
+   then your browser opens the app at **http://localhost:5173**. Keep the black window open while
+   you use the app.
+
+If the app opens in a browser other than Google Chrome or Microsoft Edge, copy the address
+`http://localhost:5173` into Chrome or Edge.
+
+On a Mac, the first time you double-click the `.command` file, macOS may say it cannot be opened.
+Right-click the file, choose **Open**, and then click **Open** again in the message.
+
+If you prefer the terminal, the same thing is:
 
 ```bash
 npm install
 npm run dev
 ```
-
-Then open **http://localhost:5173** in Chrome or Edge. The `npm install` step is only needed the first
-time.
 
 ## Using it at the meeting
 
