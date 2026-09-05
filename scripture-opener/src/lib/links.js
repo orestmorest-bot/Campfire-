@@ -63,6 +63,21 @@ export const DEFAULT_SETTINGS = {
   autoOpen: true,
   openChapterOnly: true,
   fastMode: true,
+  vibrate: true,
+}
+
+/** True on phones and tablets (iPads report themselves as a Mac, so touch points are checked too). */
+export function isMobileDevice() {
+  if (typeof navigator === 'undefined') return false
+  const ua = navigator.userAgent || ''
+  if (/Android|iPhone|iPad|iPod/i.test(ua)) return true
+  return /Macintosh/.test(ua) && navigator.maxTouchPoints > 1
+}
+
+/** Settings for a first visit: phones and tablets open scriptures through jw.org, which can hand
+ *  them to the JW Library app. Computers open the Watchtower Online Library in a second window. */
+export function initialSettings() {
+  return isMobileDevice() ? { ...DEFAULT_SETTINGS, openMode: 'jworg' } : DEFAULT_SETTINGS
 }
 
 function pad(n, width) {

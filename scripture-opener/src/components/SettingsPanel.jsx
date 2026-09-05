@@ -66,6 +66,10 @@ export default function SettingsPanel({ settings, onChange, onReset, onTest }) {
             <input type="checkbox" checked={settings.fastMode} onChange={(e) => update({ fastMode: e.target.checked })} />
             <span>Fast mode: open as soon as the words are recognized, without waiting for the end of the sentence</span>
           </label>
+          <label className="check">
+            <input type="checkbox" checked={settings.vibrate} onChange={(e) => update({ vibrate: e.target.checked })} />
+            <span>Vibrate when a scripture is heard (phones and tablets)</span>
+          </label>
         </fieldset>
 
         <fieldset>

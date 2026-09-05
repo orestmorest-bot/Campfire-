@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react'
 
 export default function TranscriptPanel({ segments, interimText, listening, compact = false }) {
-  const bottom = useRef(null)
+  const box = useRef(null)
 
+  // Keep the newest words visible by scrolling only inside this box, never the whole page.
   useEffect(() => {
-    bottom.current?.scrollIntoView({ block: 'end' })
+    const el = box.current
+    if (el) el.scrollTop = el.scrollHeight
   }, [segments, interimText])
 
   return (
@@ -13,7 +15,7 @@ export default function TranscriptPanel({ segments, interimText, listening, comp
         <p className="eyebrow">What the microphone hears</p>
         {listening && <span className="live-pill">live</span>}
       </div>
-      <div className="transcript">
+      <div className="transcript" ref={box}>
         {segments.length === 0 && !interimText && (
           <p className="muted">
             {listening ? 'Waiting for someone to speak…' : 'The words that are recognized will show up here.'}
@@ -34,7 +36,6 @@ export default function TranscriptPanel({ segments, interimText, listening, comp
           </div>
         ))}
         {interimText && <p className="transcript-interim">{interimText}</p>}
-        <div ref={bottom} />
       </div>
     </div>
   )

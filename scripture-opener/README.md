@@ -110,11 +110,41 @@ npm test
 The tests check the Bible data (66 books, 1,189 chapters, 31,102 verses) and many spoken forms of
 scripture references.
 
-## Putting it online (optional)
+## On a phone or tablet
 
-`npm run build` creates a `dist` folder with plain files that can be hosted on any static web host
-(Vercel, Netlify, GitHub Pages and so on). Browsers only allow the microphone on **https** pages or on
-`localhost`, so hosting it online is the easy way to use the app from a phone or tablet.
+Phones only allow the microphone on a secure web address (one that starts with `https`), so the app
+has to be online. This repository is set up to publish the app to **GitHub Pages** by itself:
+
+1. On GitHub, open the repository **Settings**, then **Pages**. Under "Build and deployment" set
+   **Source** to **GitHub Actions**. This is a one-time step.
+2. Every time the `scripture-opener` folder changes on the `main` branch, the workflow in
+   `.github/workflows/deploy-scripture-opener.yml` builds the app and publishes it. You can also start
+   it by hand on the **Actions** tab ("Deploy Scripture Opener to GitHub Pages", then "Run workflow").
+3. The app is then available at `https://<your GitHub name>.github.io/<repository name>/`.
+   For this repository that is **https://orestmorest-bot.github.io/Campfire-/**.
+
+On the phone or tablet:
+
+1. Open that address in **Chrome** (Android) or **Safari** (iPhone or iPad).
+2. In the browser menu choose **Add to Home screen**. From then on it opens like a normal app.
+3. Tap **Start listening** and allow the microphone.
+4. Scriptures open through jw.org, which hands them to the **JW Library** app when it is installed.
+   The phone also gives a short buzz whenever a scripture is heard.
+
+Good to know on a phone or tablet:
+
+- Mobile browsers are strict about opening things by themselves. If the scripture does not open
+  automatically, tap the big **Open** button. In Chrome on Android you can allow it permanently:
+  browser menu, **Settings**, **Site settings**, **Pop-ups and redirects**, allow for this page.
+- While JW Library is in front, the browser may pause listening. On a tablet (and on many phones)
+  use **split screen** with the app on one side and JW Library on the other, so both stay active.
+- The app keeps the screen awake while it is listening, so keep the device plugged in for a long
+  meeting.
+
+### Other ways to put it online
+
+`npm run build` creates a `dist` folder with plain files that can be hosted on any static web host,
+for example Vercel or Netlify (set the project's root folder to `scripture-opener`).
 
 ## Good to know
 

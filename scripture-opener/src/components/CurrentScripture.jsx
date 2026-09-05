@@ -1,4 +1,4 @@
-export default function CurrentScripture({ item, listening, onOpen, onPickAlternative }) {
+export default function CurrentScripture({ item, listening, href, target, onOpen, onMarkOpened, onPickAlternative }) {
   if (!item) {
     return (
       <div className="card card-current card-empty">
@@ -8,7 +8,10 @@ export default function CurrentScripture({ item, listening, onOpen, onPickAltern
         ) : (
           <ol className="steps">
             <li>Click <strong>Start listening</strong> and allow the microphone.</li>
-            <li>A Bible window opens. Put it next to this one.</li>
+            <li>
+              The Bible opens in a second window (on a phone or tablet: in the JW Library app or on jw.org). On a
+              tablet, use split screen so both stay visible.
+            </li>
             <li>Whenever someone says a scripture, such as “Psalm 83 verse 18”, it opens by itself.</li>
           </ol>
         )}
@@ -24,9 +27,15 @@ export default function CurrentScripture({ item, listening, onOpen, onPickAltern
       <p className="eyebrow">Current scripture</p>
       <div className="current-main">
         <h2 className="current-label">{ref.label}</h2>
-        <button type="button" className="btn btn-primary" onClick={() => onOpen(item)}>
-          {opened ? 'Open again' : 'Open'}
-        </button>
+        {href ? (
+          <a className="btn btn-primary btn-open" href={href} target={target} rel="noopener" onClick={() => onMarkOpened(item)}>
+            {opened ? 'Open again' : 'Open'}
+          </a>
+        ) : (
+          <button type="button" className="btn btn-primary btn-open" onClick={() => onOpen(item)}>
+            {opened ? 'Open again' : 'Open'}
+          </button>
+        )}
       </div>
       <p className="muted small">
         {sourceLabel} at {new Date(item.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}

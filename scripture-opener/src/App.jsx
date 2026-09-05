@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { analyzeText, findReferences, parseTyped } from './lib/parser.js'
-import { buildUrl, homeUrl, DEFAULT_SETTINGS } from './lib/links.js'
+import { buildUrl, homeUrl, DEFAULT_SETTINGS, initialSettings } from './lib/links.js'
 import { useSpeechRecognition } from './hooks/useSpeechRecognition.js'
 import { useMicLevel } from './hooks/useMicLevel.js'
 import { useWakeLock } from './hooks/useWakeLock.js'
@@ -23,7 +23,7 @@ let idCounter = 0
 const uid = () => `${Date.now()}-${idCounter++}`
 
 export default function App() {
-  const [settings, setSettings] = useLocalStorage('scripture-opener-settings', DEFAULT_SETTINGS)
+  const [settings, setSettings] = useLocalStorage('scripture-opener-settings', initialSettings())
   const [segments, setSegments] = useState([]) // finished lines of the transcript
   const [interimText, setInterimText] = useState('') // words still being recognized
   const [history, setHistory] = useState([])
@@ -94,6 +94,14 @@ export default function App() {
       const item = { id: uid(), ref, time: now, source, opened }
       setHistory((h) => [item, ...h].slice(0, 100))
       setCurrent(item)
+      // A short buzz on phones and tablets, so you notice a new scripture without watching the screen.
+      if (source === 'speech' && s.vibrate && typeof navigator !== 'undefined' && navigator.vibrate) {
+        try {
+          navigator.vibrate(opened ? 120 : [120, 80, 120])
+        } catch {
+          // not supported
+        }
+      }
     },
     [openReference],
   )
@@ -188,6 +196,17 @@ export default function App() {
     setCurrent({ ...item, opened: item.opened || opened })
   }
 
+  // The big Open button is a real link, so a phone can hand the scripture straight to the
+  // JW Library app. This only records that it was opened.
+  const handleMarkOpened = (item) => {
+    setPopupBlocked(false)
+    setHistory((h) => h.map((x) => (x.id === item.id ? { ...x, opened: true } : x)))
+    setCurrent({ ...item, opened: true })
+  }
+
+  const currentHref = current && settings.openMode !== 'embed' ? buildUrl(current.ref, settings) : null
+  const currentTarget = settings.openMode === 'jwlibrary' ? undefined : WINDOW_NAME
+
   const handleClear = () => {
     setSegments([])
     setHistory([])
@@ -258,8 +277,10 @@ export default function App() {
       {popupBlocked && (
         <div className="banner banner-warn">
           <span>
-            The browser blocked the Bible window. Click the button to open it, and allow pop-ups for this page (the
-            icon at the right end of the address bar) so it can open by itself next time.
+            The browser did not let the app open the Bible by itself. Use the button to open it. To allow it next
+            time: on a computer, click the pop-up icon at the right end of the address bar and choose “Always
+            allow”; on a phone, open the browser settings, then Site settings, then “Pop-ups and redirects”, and
+            allow them for this page.
           </span>
           <button type="button" className="btn btn-small" onClick={() => (current ? handleOpenAgain(current) : ensureBibleWindow())}>
             Open Bible window
@@ -282,7 +303,10 @@ export default function App() {
           <CurrentScripture
             item={current}
             listening={listening}
+            href={currentHref}
+            target={currentTarget}
             onOpen={handleOpenAgain}
+            onMarkOpened={handleMarkOpened}
             onPickAlternative={(alt) => processReference(alt, 'manual')}
           />
           <ManualEntry onSubmit={handleManual} />

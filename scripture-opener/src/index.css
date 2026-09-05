@@ -257,6 +257,39 @@ select {
   color: var(--accent);
 }
 
+a.btn {
+  text-decoration: none;
+}
+
+.btn-open {
+  min-width: 120px;
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 12px;
+    gap: 12px;
+  }
+  .btn-open {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 18px;
+  }
+  .current-main {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .field-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .history {
+    max-height: 30vh;
+  }
+  .card-transcript {
+    min-height: 200px;
+  }
+}
+
 /* Banners */
 .banner {
   display: flex;
