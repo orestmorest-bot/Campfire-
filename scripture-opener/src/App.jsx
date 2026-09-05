@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { findReferences, parseTyped } from './lib/parser.js'
+import { analyzeText, findReferences, parseTyped } from './lib/parser.js'
 import { buildUrl, homeUrl, DEFAULT_SETTINGS } from './lib/links.js'
 import { useSpeechRecognition } from './hooks/useSpeechRecognition.js'
 import { useMicLevel } from './hooks/useMicLevel.js'
@@ -102,7 +102,10 @@ export default function App() {
     ({ finals, interim }) => {
       for (const text of finals) {
         clearInterimTimer()
-        const refs = findReferences(text, { mode: 'speech', context: contextRef.current })
+        const { refs, context } = analyzeText(text, { mode: 'speech', context: contextRef.current })
+        // Remember the last book and chapter, even a held-back one such as "Matthew 24",
+        // so that a "verse 14" in the next sentence is understood.
+        contextRef.current = context
         setSegments((prev) => [...prev.slice(-80), { id: uid(), text, refs }])
         refs.forEach((ref) => processReference(ref, 'speech'))
       }

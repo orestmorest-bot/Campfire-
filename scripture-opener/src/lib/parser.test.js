@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { findReferences, parseTyped, tokenize } from './parser.js'
+import { analyzeText, findReferences, parseTyped, tokenize } from './parser.js'
 import { replaceNumberWords } from './numbers.js'
 import { BOOKS } from './books.js'
 import { bibleCode, wolUrl, jwOrgUrl, jwLibraryUrl, DEFAULT_SETTINGS } from './links.js'
@@ -106,6 +106,22 @@ describe('plain references', () => {
   })
 })
 
+describe('the word "number" after chapter or verse', () => {
+  it('understands "verse number" and "chapter number"', () => {
+    expect(labels("let's open the book of Matthew chapter 24 verse number 14")).toEqual(['Matthew 24:14'])
+    expect(labels("let's open the book of Matthew chapter twenty four verse number fourteen")).toEqual(['Matthew 24:14'])
+    expect(labels('turn with me to the book of first Corinthians chapter number 13 verse number 4')).toEqual(['1 Corinthians 13:4'])
+    expect(labels('Jude verse number 3')).toEqual(['Jude 3'])
+    expect(labels('Matthew 24 verse 14 and verse number 15')).toEqual(['Matthew 24:14, 15'])
+  })
+  it('does not mistake "verse numbers" for the book of Numbers', () => {
+    expect(labels("open your Bibles to Matthew 24 and let's read verse numbers 14 and 15")).toEqual(['Matthew 24:14, 15'])
+    expect(labels('verse numbers 14 and 15', { bookNumber: 40, chapter: 24 })).toEqual(['Matthew 24:14, 15'])
+    expect(labels('chapter number 5 verse number 3', { bookNumber: 40, chapter: 24 })).toEqual(['Matthew 5:3'])
+    expect(labels('Numbers chapter 6 verse 24')).toEqual(['Numbers 6:24'])
+  })
+})
+
 describe('glued numbers', () => {
   it('splits numbers that were run together', () => {
     expect(labels('John 316')).toEqual(['John 3:16'])
@@ -160,6 +176,14 @@ describe('continuations', () => {
   })
   it('uses references earlier in the same text as context', () => {
     expect(labels('John chapter 3 and now verse 16')).toEqual(['John 3', 'John 3:16'])
+  })
+  it('remembers a held-back mention such as "Matthew 24" for the next sentence', () => {
+    const first = analyzeText('Please turn to Matthew 24')
+    expect(first.refs).toEqual([])
+    expect(first.context).toEqual({ bookNumber: 40, chapter: 24 })
+    const second = analyzeText('verse 14 says', { context: first.context })
+    expect(second.refs.map((r) => r.label)).toEqual(['Matthew 24:14'])
+    expect(analyzeText('nothing here', { context: first.context }).context).toEqual(first.context)
   })
   it('does nothing without context', () => {
     expect(labels('verse 17')).toEqual([])

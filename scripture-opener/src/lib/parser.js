@@ -23,6 +23,8 @@ const CHAPTER_WORDS = new Set(['chapter', 'chapters', 'ch', 'chap'])
 const VERSE_WORDS = new Set(['verse', 'verses', 'v', 'vs', 'vv', 'ver', 'vers'])
 const RANGE_WORDS = new Set(['-', 'to', 'through', 'thru', 'till', 'until'])
 const LIST_WORDS = new Set(['and', '&', 'plus'])
+// Words people put between "verse" and the number: "verse number 14", "chapter no 3".
+const FILLER_WORDS = new Set(['number', 'numbers', 'no'])
 // Continuations ("verse 17" on its own) only trigger on the full words in speech mode.
 const CONTINUATION_CHAPTER_WORDS = new Set(['chapter', 'chapters'])
 const CONTINUATION_VERSE_WORDS = new Set(['verse', 'verses'])
@@ -113,9 +115,17 @@ function findBookMatches(tokens, mode) {
     const book = BOOKS[number - 1]
     const start = countSpaces(joined, 0, m.index)
     const end = countSpaces(joined, 0, m.index + m[0].length) + 1
+    // "verse numbers 14 and 15" is about verses, not the book of Numbers
+    const previous = tokens[start - 1]
+    if (book.number === 4 && (VERSE_WORDS.has(previous) || CHAPTER_WORDS.has(previous))) continue
     matches.push({ book, start, end })
   }
   return matches
+}
+
+// Skips "number" / "numbers" in "verse number 14" so the number comes next.
+function skipFiller(tokens, i) {
+  return FILLER_WORDS.has(tokens[i]) ? i + 1 : i
 }
 
 function countSpaces(s, from, to) {
@@ -206,7 +216,7 @@ function readVerseList(tokens, i, stopAt) {
     }
     if (LIST_WORDS.has(t)) {
       let j = i + 1
-      if (VERSE_WORDS.has(tokens[j])) j++
+      if (VERSE_WORDS.has(tokens[j])) j = skipFiller(tokens, j + 1)
       if (isNumberToken(tokens[j]) && !stopAt.has(j)) {
         segments.push(current)
         current = { from: Number(tokens[j]), to: Number(tokens[j]) }
@@ -254,7 +264,7 @@ function parseAfterBook(tokens, start, book, mode, bookStarts) {
   if (tokens[i] === ':') i++
   if (CHAPTER_WORDS.has(tokens[i])) {
     explicitChapter = true
-    i++
+    i = skipFiller(tokens, i + 1)
   }
 
   const single = isSingleChapter(book)
@@ -264,7 +274,7 @@ function parseAfterBook(tokens, start, book, mode, bookStarts) {
     let chapter = 1
     if (VERSE_WORDS.has(tokens[i])) {
       explicitVerse = true
-      i++
+      i = skipFiller(tokens, i + 1)
     }
     if (!isNumberToken(tokens[i]) || bookStarts.has(i)) {
       if (explicitChapter && !explicitVerse) return finish(makeReference(book, 1, [], { explicitChapter }), i)
@@ -274,9 +284,12 @@ function parseAfterBook(tokens, start, book, mode, bookStarts) {
     if (!explicitVerse && Number(tokens[i]) === 1) {
       let j = i + 1
       let sep = false
-      if (tokens[j] === ':' || VERSE_WORDS.has(tokens[j])) {
+      if (tokens[j] === ':') {
         sep = true
         j++
+      } else if (VERSE_WORDS.has(tokens[j])) {
+        sep = true
+        j = skipFiller(tokens, j + 1)
       }
       if (isNumberToken(tokens[j]) && !bookStarts.has(j) && (sep || verseIsPlausible(book, 1, Number(tokens[j])))) {
         const { segments, end } = readVerseList(tokens, j, bookStarts)
@@ -304,7 +317,7 @@ function parseAfterBook(tokens, start, book, mode, bookStarts) {
   } else if (VERSE_WORDS.has(tokens[i])) {
     separator = true
     explicitVerse = true
-    i++
+    i = skipFiller(tokens, i + 1)
   }
 
   const chapterValid = chapter >= 1 && chapter <= chapterCount(book)
@@ -330,7 +343,9 @@ function parseAfterBook(tokens, start, book, mode, bookStarts) {
     if (chapterText.length >= 3 && !separator) {
       ref.alternatives = gluedCandidates(book, chapterText).map((c) => makeReference(book, c.chapter, [{ from: c.verse, to: c.verse }]))
     }
-    if (mode === 'speech' && book.cautious && !explicitChapter) return null
+    // "Mark 3" or "Matthew 24" without the word "chapter" could be ordinary talk, so it is not
+    // reported on its own. It is still remembered, so that a following "verse 14" makes sense.
+    if (mode === 'speech' && book.cautious && !explicitChapter) ref.tentative = true
     return finish(ref, separator ? i - 1 : i)
   }
 
@@ -361,17 +376,18 @@ function parseContinuation(tokens, i, context, bookStarts) {
   let explicitChapter = false
   let j = i
   if (CONTINUATION_CHAPTER_WORDS.has(tokens[j])) {
-    if (!isNumberToken(tokens[j + 1]) || bookStarts.has(j + 1)) return null
-    chapter = Number(tokens[j + 1])
+    const n = skipFiller(tokens, j + 1)
+    if (!isNumberToken(tokens[n]) || bookStarts.has(n)) return null
+    chapter = Number(tokens[n])
     if (chapter < 1 || chapter > chapterCount(book)) return null
     explicitChapter = true
-    j += 2
+    j = n + 1
     if (tokens[j] === ':') j++
     if (!VERSE_WORDS.has(tokens[j]) && !isNumberToken(tokens[j])) {
       return withSpan(makeReference(book, chapter, [], { explicitChapter, source: 'continuation' }), i, j)
     }
   }
-  if (VERSE_WORDS.has(tokens[j])) j++
+  if (VERSE_WORDS.has(tokens[j])) j = skipFiller(tokens, j + 1)
   else if (!explicitChapter) return null
   if (!isNumberToken(tokens[j]) || bookStarts.has(j)) {
     if (explicitChapter) return withSpan(makeReference(book, chapter, [], { explicitChapter, source: 'continuation' }), i, j)
@@ -404,11 +420,13 @@ function parseContinuation(tokens, i, context, bookStarts) {
  * @param {'speech'|'typed'} options.mode   How strict to be (see the top of this file).
  * @param {{bookNumber:number, chapter:number}|null} options.context
  *        The most recent reference, used to understand "verse 17" said on its own.
- * @returns {Array} references in the order they appear.
+ * @returns {{refs: Array, context: object|null}}
+ *        The references in the order they appear, and the context to remember for the next
+ *        piece of text (the last book and chapter that was mentioned, even a held-back one).
  */
-export function findReferences(text, { mode = 'speech', context = null } = {}) {
+export function analyzeText(text, { mode = 'speech', context = null } = {}) {
   const tokens = tokenize(text)
-  if (!tokens.length) return []
+  if (!tokens.length) return { refs: [], context }
 
   const bookMatches = findBookMatches(tokens, mode)
   const bookStarts = new Set(bookMatches.map((m) => m.start))
@@ -434,11 +452,16 @@ export function findReferences(text, { mode = 'speech', context = null } = {}) {
       ref = parseContinuation(tokens, anchor.index, currentContext, bookStarts)
     }
     if (!ref) continue
-    refs.push(ref)
     consumedUntil = ref.tokenEnd
     currentContext = { bookNumber: ref.bookNumber, chapter: ref.chapter }
+    if (!ref.tentative) refs.push(ref)
   }
-  return refs
+  return { refs, context: currentContext }
+}
+
+/** Like analyzeText, but returns only the list of references. */
+export function findReferences(text, options) {
+  return analyzeText(text, options).refs
 }
 
 /** Parse a single reference the user typed by hand. Returns the first match or null. */
