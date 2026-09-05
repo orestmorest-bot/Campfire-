@@ -23,3 +23,10 @@ The design medium is **HTML/CSS/JS** — these are prototypes, not production co
 - `README.md` — this file
 - `chats/` — conversation transcripts (read these!)
 - `project/` — the `Campfire Landing` project files (HTML prototypes, assets, components)
+
+---
+
+## Other apps in this repository
+
+- `scripture-opener/` — a separate web app that listens during a meeting and automatically opens the
+  Bible scriptures a speaker mentions. See `scripture-opener/README.md` for how to run it.
